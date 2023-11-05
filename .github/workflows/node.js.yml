@@ -46,7 +46,7 @@ jobs:
           rm -rf public/HaTienLoi-CV
           ./wkhtmltox/bin/wkhtmltopdf.exe ./cv.html ./public/HaTienLoi-CV.pdf
   
-      - run: npm run install
+      - run: npm i
 
       - run: npm run build
 

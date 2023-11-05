@@ -1,0 +1,18 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = false
+quote_type = single
+
+# Tab indentation (no size specified)
+[Makefile]
+indent_style = tab
+
+# Indentation override for all JS/TS
+[*.{js,ts,tsx,jsx,html}]
+indent_style = space
+indent_size = 4
+charset = utf-8

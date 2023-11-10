@@ -5,6 +5,7 @@ import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import css from 'rollup-plugin-css-only';
+import obfuscator from 'rollup-plugin-obfuscator';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -32,12 +33,25 @@ function serve() {
 export default {
 	input: 'src/main.js',
 	output: {
-		sourcemap: true,
+		// sourcemap: true,
 		format: 'iife',
 		name: 'app',
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+        obfuscator({
+			options: {
+                compact: true,
+                simplify: true,
+                splitStrings: true,
+                renameProperties: true,
+                stringArray: true,
+                stringArrayCallsTransform: true,
+                stringArrayCallsTransformThreshold: 1,
+                stringArrayRotate: true,
+                stringArrayThreshold: 1
+			},
+		}),
 		svelte({
 			compilerOptions: {
 				// enable run-time checks when not in production

@@ -1,0 +1,13 @@
+{
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.wordWrapColumn": 120,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": false,
+        "source.fixAll.eslint": "true"
+    },
+    "eslint.validate": ["typescript", "typescriptreact"],
+    "css.lint.unknownAtRules": "ignore",
+    "prettier.ignorePath": "../.prettierignore"
+}

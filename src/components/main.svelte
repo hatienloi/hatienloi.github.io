@@ -21,4 +21,21 @@
         width: 100%;
         height: 100%;
     }
+
+    * {
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px #DFE4E8;
+        }
+
+        &::-webkit-scrollbar {
+            width: 7px !important;
+            border-radius: 5px !important;
+            background-color: #DFE4E8;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.52);
+            border-radius: 5px !important;
+        }
+    }
 </style>

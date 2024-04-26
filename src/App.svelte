@@ -1,5 +1,6 @@
 <script>
-  import Main from "./components/main.svelte";
+    import Tailwindcss from './Tailwind.svelte';
+    import Main from "./components/main.svelte";
 </script>
-
-<Main />
+<Tailwindcss/>
+<Main/>

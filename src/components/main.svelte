@@ -2,7 +2,7 @@
     import Device from 'svelte-device-info'
 </script>
 <script>
-    let src = "/HaTienLoi-CV.pdf";
+    let src = "/CV-HaTienLoi.pdf";
 
     $: if (Device.isPhone || Device.isMobile || Device.isTablet) {
         window.location.href = src;

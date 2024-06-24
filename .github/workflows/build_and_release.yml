@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  WKHTMLTOPDF_PATH: './wkhtmltox/bin/wkhtmltopdf.exe'
+  WKHTMLTOPDF_PATH: 'wkhtmltopdf'
   INPUT_CV_PATH: './cv.html'
   OUTPUT_CV_PATH: './public/CV-HaTienLoi.pdf'
 
@@ -39,6 +39,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install Wkhtmltopdf
+        uses: MinoruSekine/setup-scoop@v4
+        with:
+          buckets: main
+          apps: wkhtmltopdf
 
       - name: Convert CV from html to pdf
         shell: bash

@@ -1,13 +1,12 @@
-const {spawn, exec} = require('child_process');
+const { spawn, exec } = require('child_process');
 const FormData = require('form-data');
-import axios from "axios";
+import axios from 'axios';
 import { readFileSync, unlink, createReadStream } from 'fs';
 
-
 const now = Date.now();
-const cvPath = 'cv-new.html'
-const output = 'public/CV-HaTienLoi.pdf'
-const webpage = `${now}-cv-newhtml.webpage`
+const cvPath = 'cv-new.html';
+const output = 'public/CV-HaTienLoi.pdf';
+const webpage = `${now}-cv-newhtml.webpage`;
 
 async function sh(command, args) {
     const p = spawn(command, args);
@@ -30,30 +29,30 @@ const sleep = async (number: number) => {
 
 const createJob = async () => {
     const data = JSON.stringify({
-        "tasks": {
-            "import": {
-                "operation": "import/upload"
+        tasks: {
+            import: {
+                operation: 'import/upload',
             },
-            "convert": {
-                "operation": "convert",
-                "input": "import",
-                "input_format": "webpage",
-                "output_format": "pdf",
-                "options": {
-                    "page_size": "a3",
-                    "page_orientation": "portrait",
-                    "margin": "48",
-                    "initial_delay": "3",
-                    "hide_cookie": true,
-                    "use_print_stylesheet": true
+            convert: {
+                operation: 'convert',
+                input: 'import',
+                input_format: 'webpage',
+                output_format: 'pdf',
+                options: {
+                    page_size: 'a3',
+                    page_orientation: 'portrait',
+                    margin: '48',
+                    initial_delay: '3',
+                    hide_cookie: true,
+                    use_print_stylesheet: true,
                 },
-                "type": "webpage"
+                type: 'webpage',
             },
-            "export-url": {
-                "operation": "export/url",
-                "input": "convert"
-            }
-        }
+            'export-url': {
+                operation: 'export/url',
+                input: 'convert',
+            },
+        },
     });
 
     const config = {
@@ -61,11 +60,12 @@ const createJob = async () => {
         maxBodyLength: Infinity,
         url: 'https://api.freeconvert.com/v1/process/jobs',
         headers: {
-            'accept': 'application/json, text/plain, */*',
+            accept: 'application/json, text/plain, */*',
             'content-type': 'application/json',
-            'origin': 'https://www.freeconvert.com',
-            'referer': 'https://www.freeconvert.com/',
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+            origin: 'https://www.freeconvert.com',
+            referer: 'https://www.freeconvert.com/',
+            'user-agent':
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
         },
         data,
     };
@@ -77,15 +77,16 @@ const createJob = async () => {
         const jobId = importUploadJob.id;
         const formUrl = importUploadJob.result.form.url;
         const regex = /https?:\/\/server(\d+\-).*?com/;
-        const serverUrl = regex.exec(formUrl)[0].toString().replace('server', 's');
+        const serverUrl =
+            regex.exec(formUrl)?.[0]?.toString()?.replace('server', 's') || '';
         const signature = importUploadJob.result.form.parameters.signature;
         const exportTask = tasks.find((v) => v.name === 'export-url');
         const exportId = exportTask.id;
-        return {jobId, signature, serverUrl, exportId};
+        return { jobId, signature, serverUrl, exportId };
     } catch (error) {
         throw new Error(`createJob error: ${error}`);
     }
-}
+};
 
 const resumableJob = async (jobId: string, serverUrl: string) => {
     let data = new FormData();
@@ -102,10 +103,11 @@ const resumableJob = async (jobId: string, serverUrl: string) => {
         maxBodyLength: Infinity,
         url: `${serverUrl}/api/resumable/${jobId}?resumableType=text%2Fhtml&resumableIdentifier=${webpage}&resumableFilename=cv-new.html&resumableRelativePath=cv-new.html&resumableTotalChunks=1`,
         headers: {
-            'origin': 'https://www.freeconvert.com',
-            'referer': 'https://www.freeconvert.com/',
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-            ...data.getHeaders()
+            origin: 'https://www.freeconvert.com',
+            referer: 'https://www.freeconvert.com/',
+            'user-agent':
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+            ...data.getHeaders(),
         },
         data,
     };
@@ -119,7 +121,7 @@ const resumableJob = async (jobId: string, serverUrl: string) => {
     } catch (error) {
         throw new Error(`resumableJob error: ${error}`);
     }
-}
+};
 
 const joinJob = async (jobId: string, serverUrl: string) => {
     let data = new FormData();
@@ -130,12 +132,13 @@ const joinJob = async (jobId: string, serverUrl: string) => {
         maxBodyLength: Infinity,
         url: `${serverUrl}/api/resumable/join/${jobId}`,
         headers: {
-            'origin': 'https://www.freeconvert.com',
-            'referer': 'https://www.freeconvert.com/',
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-            ...data.getHeaders()
+            origin: 'https://www.freeconvert.com',
+            referer: 'https://www.freeconvert.com/',
+            'user-agent':
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+            ...data.getHeaders(),
         },
-        data: data
+        data: data,
     };
     try {
         const resp = await axios.request(config);
@@ -144,9 +147,13 @@ const joinJob = async (jobId: string, serverUrl: string) => {
     } catch (error) {
         throw new Error(`joinJob error: ${error}`);
     }
-}
+};
 
-const uploadFile = async (jobId: string, signature: string, serverUrl: string) => {
+const uploadFile = async (
+    jobId: string,
+    signature: string,
+    serverUrl: string
+) => {
     let data = new FormData();
     data.append('identifier', webpage);
     data.append('fileName', cvPath);
@@ -156,10 +163,11 @@ const uploadFile = async (jobId: string, signature: string, serverUrl: string) =
         maxBodyLength: Infinity,
         url: `${serverUrl}/api/upload/${jobId}`,
         headers: {
-            'origin': 'https://www.freeconvert.com',
-            'referer': 'https://www.freeconvert.com/',
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-            ...data.getHeaders()
+            origin: 'https://www.freeconvert.com',
+            referer: 'https://www.freeconvert.com/',
+            'user-agent':
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+            ...data.getHeaders(),
         },
         data,
     };
@@ -173,7 +181,7 @@ const uploadFile = async (jobId: string, signature: string, serverUrl: string) =
     } catch (error) {
         throw new Error(`uploadFile error: ${error}`);
     }
-}
+};
 
 const downloadFile = async (serverUrl: string, exportId: string) => {
     const url = `${serverUrl}/task/${exportId}/cv-new.pdf`;
@@ -181,7 +189,7 @@ const downloadFile = async (serverUrl: string, exportId: string) => {
         method: 'head',
         maxBodyLength: Infinity,
         url: url,
-        headers: {}
+        headers: {},
     };
     let retry = 1;
     const maxRetry = 20;
@@ -189,29 +197,28 @@ const downloadFile = async (serverUrl: string, exportId: string) => {
     while (retry < maxRetry) {
         try {
             const resp = await axios.request(config);
-            console.log(resp)
             if (resp.status === 200) {
                 await sh('curl', [url, '-o', output]);
                 return;
             }
         } catch (error) {
-            console.log(`Error download: ${error}`)
+            console.log(`Error download: ${error}`);
         }
-        await sleep(1000)
+        await sleep(1000);
         retry += 1;
     }
-}
+};
 
 const main = async () => {
-    const {jobId, signature, serverUrl, exportId} = await createJob();
+    const { jobId, signature, serverUrl, exportId } = await createJob();
     await sleep(2000);
-    await resumableJob(jobId, serverUrl)
+    await resumableJob(jobId, serverUrl);
     await sleep(2000);
     await joinJob(jobId, serverUrl);
     await sleep(2000);
-    await uploadFile(jobId, signature, serverUrl)
+    await uploadFile(jobId, signature, serverUrl);
     await sleep(2000);
-    await downloadFile(serverUrl, exportId)
+    await downloadFile(serverUrl, exportId);
 };
 
 main();

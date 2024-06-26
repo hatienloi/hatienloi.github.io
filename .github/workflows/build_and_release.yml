@@ -30,7 +30,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -40,17 +40,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Wkhtmltopdf
-        uses: MinoruSekine/setup-scoop@v4
-        with:
-          buckets: main
-          apps: wkhtmltopdf
-
-      - name: Convert CV from html to pdf
-        shell: bash
-        run: |
-          rm -rf ${{ env.OUTPUT_CV_PATH }}
-          ${{ env.WKHTMLTOPDF_PATH }} ${{ env.INPUT_CV_PATH }} ${{ env.OUTPUT_CV_PATH }}
+#      - name: Install Wkhtmltopdf
+#        uses: MinoruSekine/setup-scoop@v4
+#        with:
+#          buckets: main
+#          apps: wkhtmltopdf
+#
+#      - name: Convert CV from html to pdf
+#        shell: bash
+#        run: |
+#          rm -rf ${{ env.OUTPUT_CV_PATH }}
+#          ${{ env.WKHTMLTOPDF_PATH }} ${{ env.INPUT_CV_PATH }} ${{ env.OUTPUT_CV_PATH }}
 
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -58,11 +58,17 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
+      - run: npm install -g yarn --save-dev
+        name: 'Install yarn'
+
       - name: Install dependencies
-        run: npm i
+        run: yarn install
+
+      - name: Convert CV from html to pdf
+        run: yarn convert-html-to-pdf
 
       - name: Build
-        run: npm run build
+        run: yarn build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

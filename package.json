@@ -2,17 +2,19 @@
   "name": "cv-hatienloi",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public --no-clear"
+    "build": "rollup -c --bundleConfigAsCjs",
+    "dev": "rollup -c -w --bundleConfigAsCjs true",
+    "start": "sirv public --no-clear",
+    "convert-html-to-pdf": "yarn tsx scripts/convert-html-to-pdf.ts"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-terser": "^0.4.0",
+    "@types/node": "^20.14.9",
     "autoprefixer": "^10.4.19",
+    "axios": "^1.7.2",
     "postcss": "^8.4.38",
     "rollup": "^3.15.0",
     "rollup-plugin-css-only": "^4.3.0",
@@ -21,7 +23,8 @@
     "rollup-plugin-svelte": "^7.1.2",
     "svelte": "^3.55.0",
     "svelte-preprocess": "^5.1.4",
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": "^3.4.3",
+    "tsx": "^4.15.7"
   },
   "dependencies": {
     "sirv-cli": "^2.0.2",

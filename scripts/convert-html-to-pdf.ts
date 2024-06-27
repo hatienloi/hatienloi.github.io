@@ -39,9 +39,9 @@ const createJob = async () => {
                 input_format: 'webpage',
                 output_format: 'pdf',
                 options: {
-                    page_size: 'a3',
+                    page_size: 'a4',
                     page_orientation: 'portrait',
-                    margin: '48',
+                    margin: '50',
                     initial_delay: '3',
                     hide_cookie: true,
                     use_print_stylesheet: true,

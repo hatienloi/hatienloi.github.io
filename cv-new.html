@@ -5,17 +5,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" />
         <script src="https://cdn.tailwindcss.com"></script>
-        <style>
+        <style type="text/tailwindcss">
             .font-lora {
                 font-family: Lora, serif;
+            }
+
+            .paragraph__content {
+                @apply relative mt-8 before:content-[''] before:z-10 before:w-full before:h-px before:block before:absolute before:border-t-[3px] before:border-t-black before:top-[50%];
+            }
+
+            .paragraph__title {
+                @apply text-2xl uppercase font-bold relative z-50 bg-white inline pr-2;
+            }
+
+            .header__content {
+                @apply relative mt-3 w-full;
+                @apply before:opacity-40 before:bg-[#2c2c2c] before:content-[''] before:z-[1] before:w-full before:h-[5px] before:absolute before:top-[-5px] before:left-0 before:leading-6 before:text-[#2c2c2c];
+                @apply after:opacity-40 after:bg-[#2c2c2c] after:content-[''] after:z-[1] after:w-full after:h-[5px] after:absolute after:left-0 after:top-full;
             }
         </style>
     </head>
     <body>
         <div class="p-2 font-lora">
-            <div
-                class="relative mt-3 w-full before:opacity-40 before:bg-[#2c2c2c] before:content-[''] before:z-[1] before:w-full before:h-[5px] before:absolute before:top-[-5px] before:left-0 before:leading-6 before:text-[#2c2c2c] after:opacity-40 after:bg-[#2c2c2c] after:content-[''] after:z-[1] after:w-full after:h-[5px] after:absolute after:left-0 after:top-full"
-            >
+            <div class="header__content">
                 <div class="flex">
                     <div class="bg-black text-white pl-[19px] pr-2.5 py-[23px] w-[40%] flex flex-col justify-center">
                         <div class="text-3xl leading-7 font-bold">Ha Tien Loi</div>
@@ -166,8 +178,8 @@
             </div>
 
             <!--   CAREER OBJECTIVE -->
-            <div class="relative mt-8 before:content-[''] before:z-10 before:w-full before:h-px before:block before:absolute before:border-t-[3px] before:border-t-black before:border-groove before:top-[50%]">
-                <div class="text-2xl uppercase font-bold relative z-50 bg-white inline pr-2">CAREER OBJECTIVE</div>
+            <div class="paragraph__content">
+                <div class="paragraph__title">CAREER OBJECTIVE</div>
             </div>
             <div class="relative mt-2">
                 Have 3.5 years experience as a software engineer with excellent technical skills, communication, time management and coding skills. Aiming to leverage my abilities to successfully fill the vacancy at your company. Frequently praised as hardworking by my peers, I can be relied upon to
@@ -175,8 +187,8 @@
             </div>
 
             <!--   TECHNOLOGY -->
-            <div class="relative mt-8 before:content-[''] before:z-10 before:w-full before:h-px before:block before:absolute before:border-t-[3px] before:border-t-black before:border-groove before:top-[50%]">
-                <div class="text-2xl uppercase font-bold relative z-50 bg-white inline pr-2">TECHNOLOGY</div>
+            <div class="paragraph__content">
+                <div class="paragraph__title">TECHNOLOGY</div>
             </div>
             <div class="mt-2 grid grid-cols-2">
                 <div><span class="pr-2">•</span> Python (Django, FastAPI, Flask)</div>
@@ -194,8 +206,8 @@
             </div>
 
             <!--   SKILLS -->
-            <div class="relative mt-8 before:content-[''] before:z-10 before:w-full before:h-px before:block before:absolute before:border-t-[3px] before:border-t-black before:border-groove before:top-[50%]">
-                <div class="text-2xl font-bold relative z-50 bg-white inline pr-2 uppercase">SKILLS</div>
+            <div class="paragraph__content">
+                <div class="paragraph__title">SKILLS</div>
             </div>
             <div class="mt-2 grid grid-cols-2">
                 <div><span class="pr-2">•</span> JavaScript Libraries and Frameworks</div>
@@ -219,8 +231,8 @@
             </div>
 
             <!--   EXPERIENCE -->
-            <div class="relative mt-8 before:content-[''] before:z-10 before:w-full before:h-px before:block before:absolute before:border-t-[3px] before:border-t-black before:border-groove before:top-[50%]">
-                <div class="text-2xl font-bold relative z-50 bg-white inline pr-2 uppercase">EXPERIENCE</div>
+            <div class="paragraph__content">
+                <div class="paragraph__title">EXPERIENCE</div>
             </div>
             <div class="font-semibold mt-5 text-xl">SOFTWARE ENGINEER — Yokogawa</div>
             <div class="text-lg">Ha Noi (Remote), <span class="italic">Apr 2023 - Present</span></div>
@@ -294,8 +306,8 @@
             <br />
             <br />
             <br />
-            <div class="relative mt-8 before:content-[''] before:z-10 before:w-full before:h-px before:block before:absolute before:border-t-[3px] before:border-t-black before:border-groove before:top-[50%]">
-                <div class="text-2xl font-bold relative z-50 bg-white inline pr-2 uppercase">PROJECTS</div>
+            <div class="paragraph__content">
+                <div class="paragraph__title">PROJECTS</div>
             </div>
             <div class="font-semibold mt-5 text-xl">KPMG JAPAN CO. LTD — Accounting and Auditing</div>
             <div>
@@ -485,8 +497,8 @@
             </div>
 
             <!--   EDUCATION -->
-            <div class="relative mt-8 before:content-[''] before:z-10 before:w-full before:h-px before:block before:absolute before:border-t-[3px] before:border-t-black before:border-groove before:top-[50%]">
-                <div class="text-2xl font-bold relative z-50 bg-white inline pr-2 uppercase">EDUCATION</div>
+            <div class="paragraph__content">
+                <div class="paragraph__title">EDUCATION</div>
             </div>
             <div class="font-semibold mt-5 text-xl">— PTIT university</div>
             <div class="text-lg">Ha Noi, <span class="italic">Aug 2017 - Aug 2021</span></div>
@@ -496,8 +508,8 @@
             </div>
 
             <!--   CERTIFICATIONS -->
-            <div class="relative mt-8 before:content-[''] before:z-10 before:w-full before:h-px before:block before:absolute before:border-t-[3px] before:border-t-black before:border-groove before:top-[50%]">
-                <div class="text-2xl font-bold relative z-50 bg-white inline pr-2 uppercase">CERTIFICATIONS</div>
+            <div class="paragraph__content">
+                <div class="paragraph__title">CERTIFICATIONS</div>
             </div>
             <div>
                 <p><span class="pr-2">○</span>Hackerrank: Completed the assessment the skill algorithms problem-solving (intermediate)</p>
@@ -506,8 +518,8 @@
             </div>
 
             <!--   LANGUAGES -->
-            <div class="relative mt-8 before:content-[''] before:z-10 before:w-full before:h-px before:block before:absolute before:border-t-[3px] before:border-t-black before:border-groove before:top-[50%]">
-                <div class="text-2xl font-bold relative z-50 bg-white inline pr-2 uppercase">LANGUAGES</div>
+            <div class="paragraph__content">
+                <div class="paragraph__title">LANGUAGES</div>
             </div>
             <div class="mt-2 grid grid-cols-2">
                 <div>

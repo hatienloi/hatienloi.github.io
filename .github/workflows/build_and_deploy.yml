@@ -37,7 +37,7 @@ jobs:
         run: bun install
 
       - name: Convert CV from html to pdf
-        run: bun run convert-html-to-pdf
+        run: bun run convert
 
       - name: Build
         run: bun run build

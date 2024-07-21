@@ -6,7 +6,7 @@
     "build": "rollup -c --bundleConfigAsCjs",
     "dev": "rollup -c -w --bundleConfigAsCjs true",
     "start": "sirv public --no-clear",
-    "convert-html-to-pdf": "tsx scripts/convert-html-to-pdf.ts"
+    "convert": "tsx scripts/convert-html-to-pdf.ts"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.0",
